@@ -136,7 +136,7 @@ function checkout(props) {
 
 
 
-        {/* Review Items */}
+        {/* Review Items  */}
 
 
         <div>
