@@ -19,7 +19,7 @@ function tshirts({ tshirts }) {
 
 
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font min-h-screen">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap justify-center sm:justify-around ">
 
@@ -51,7 +51,7 @@ function tshirts({ tshirts }) {
                     <div className="mt-2 flex">
 
                       {tshirts[x].color.map(x => {
-                        return <div className='mr-2 border-2 rounded-full p-1 w-5 h-5' style={{ backgroundColor: `${x}` }}></div>
+                        return <div className='mr-2 border-2 rounded-full p-1 w-5 h-5' style={{ backgroundColor: `${x}` }} key={x}></div>
                       })}
 
                     </div>

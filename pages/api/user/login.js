@@ -11,7 +11,7 @@ const handler = async (req, res) => {
         const foundUser = await User.findOne({ "email": req.body.email });
 
         if (!foundUser) {
-            return res.status(401).json({ success: false, message: 'Incorrect UserName or password' })
+            return res.status(401).json({ success: false, message: 'Incorrect UserName ' })
         }
 
         const candidatePassword = req.body.password;
@@ -25,7 +25,7 @@ const handler = async (req, res) => {
             if (isMatch) {
                 const sanitizedUser = foundUser.toPublicJSON();
                 const token = jwt.sign(sanitizedUser, process.env.SECRET_KEY, { expiresIn: '1d' });
-                return res.status(200).json({ success: true, message: 'Login successful', token });
+                return res.status(200).json({ success: true, message: 'Login successful', sanitizedUser, token });
 
             } else {
                 return res.status(401).json({ success: false, message: 'Incorrect UserName or password' });

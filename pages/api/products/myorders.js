@@ -1,29 +1,21 @@
 
 import Product from "@/models/Product";
 import connectDb from "@/middleware/mongoose";
+import Order from "@/models/Order";
+const jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
-
     if (req.method == "POST") {
-        for (let i = 0; i < req.body.length; i++) {
 
+        const token = req.body.token;
+        const user = jwt.decode(token, process.env.SECRET_KEY)
+        let foundData = await Order.find({ userId: user._id })
 
-            let p = await Product.findByIdAndDelete(req.body[i]._id)
-
-
-
-
-
-
-
-        }
-        res.status(200).send({ "success": "product deleted sucessfully" })
-
+        res.status(200).json({ foundData });
     }
     else {
         res.status(400).json({ "error": "Internal Server Error " })
     }
-
 
 
 }

@@ -33,7 +33,7 @@ const handler = async (req, res) => {
 
     }
     else {
-        req.status(400).json({ "error": "Internal Server Error " })
+        res.status(400).json({ "error": "Internal Server Error " })
     }
 
 

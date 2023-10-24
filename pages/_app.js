@@ -85,22 +85,15 @@ const MyApp = ({ Component, pageProps }) => {
 
     let newCart = cart;
     if (itemCode in newCart) {
-
       newCart[itemCode].qty = newCart[itemCode].qty + 1
-
     }
 
     else {
       newCart = { ...newCart, [itemCode]: { qty: 1, price, itemName, size, variant } }
     }
 
-
-
     setCart({ ...newCart })
     saveCart({ ...newCart })
-
-
-
 
   }
 
@@ -118,27 +111,13 @@ const MyApp = ({ Component, pageProps }) => {
     }
 
     if (itemCode in newCart) {
-
       newCart[itemCode].qty = newCart[itemCode].qty - 1
-
-
-    }
-
-
-
-    else {
+    } else {
       console.log("no item found")
     }
 
-
-
     setCart({ ...newCart })
     saveCart({ ...newCart })
-
-
-
-
-
   }
 
 
@@ -159,16 +138,10 @@ const MyApp = ({ Component, pageProps }) => {
   const buyNow = async (itemCode, price, itemName, size, variant) => {
 
     let newCart = {};
-
-
-    newCart = { [itemCode]: { qty: 1, price, itemName, size, variant } }
-
-
-
+    newCart[itemCode] = { qty: 1, price, itemName, size, variant }
 
     setCart({ ...newCart })
     saveCart({ ...newCart })
-
 
   }
 
@@ -208,6 +181,7 @@ const MyApp = ({ Component, pageProps }) => {
   const logout = () => {
 
     localStorage.removeItem("token")
+    localStorage.removeItem("user");
     setUser({ value: false })
     router.push("/login")
 

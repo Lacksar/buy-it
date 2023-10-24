@@ -1,12 +1,13 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { RxCross1 } from "react-icons/Rx"
 
 function checkout(props) {
 
 
-  const { cart, addToCart, removeFromCart, subTotal, clearCart } = props;
-
+  const { cart, addToCart, removeFromCart, subTotal, clearCart, user } = props;
+  const router = useRouter();
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -35,13 +36,6 @@ function checkout(props) {
       setPhone(e.target.value);
     }
 
-    else if (e.target.name == "city") {
-      setCity(e.target.value);
-    }
-
-    else if (e.target.name == "province") {
-      setProvince(e.target.value);
-    }
 
     else if (e.target.name == "pincode") {
       setPincode(e.target.value);
@@ -51,13 +45,30 @@ function checkout(props) {
     }
 
 
-    if (email && address && phone && city && province && pincode) {
-      setDisabled(false);
-    }
-    else {
-      setDisabled(true)
+
+  }
+
+
+  const orderNow = async (e) => {
+
+    if (!localStorage.getItem("token")) {
+      router.push("/login");
+      return
     }
 
+    e.preventDefault();
+
+    let data = { cart, email, address, phone, city, pincode, user, subTotal };
+    let res = await fetch("/api/products/order",
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+    let response = await res.json();
 
 
 
@@ -181,7 +192,7 @@ function checkout(props) {
 
           </div>
 
-          <button className={`${disabled ? "disabled bg-blue-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 cursor-pointer"} mt-4   py-2 px-4 rounded w-40`}>Pay {subTotal}</button>
+          <button className={`bg-blue-500 hover:bg-blue-600 cursor-pointer mt-4   py-2 px-4 rounded w-40`} onClick={orderNow}>Order now</button>
 
         </div>
 

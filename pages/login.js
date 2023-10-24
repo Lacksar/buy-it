@@ -52,6 +52,7 @@ function login(props) {
     let response = await res.json();
     if (response.success) {
       localStorage.setItem("token", response.token)
+      localStorage.setItem("user", JSON.stringify(response.sanitizedUser))
       Toast("success", "Logged In!")
       setEmail("");
       setPassword("");

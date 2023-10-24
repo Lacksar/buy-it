@@ -107,7 +107,7 @@ function Slug(props) {
 
                   {Object.keys(variants).map(x => {
 
-                    return <button onClick={() => { refreshPage(variants[x][Object.keys(variants[x])[0]].slug) }} className={`border-2 ${color === x ? "border-black" : "border-gray-300"} rounded-full w-6 h-6 focus:outline-none`} style={{ backgroundColor: `${x} `, }
+                    return <button key={x} onClick={() => { refreshPage(variants[x][Object.keys(variants[x])[0]].slug) }} className={`border-2 ${color === x ? "border-black" : "border-gray-300"} rounded-full w-6 h-6 focus:outline-none`} style={{ backgroundColor: `${x} `, }
                     }></button>
 
 
@@ -122,7 +122,7 @@ function Slug(props) {
 
                       {Object.keys(variants[color]).map(x => {
 
-                        return <option value={x}>{x}</option>
+                        return <option value={x} key={x}>{x}</option>
 
 
                       })}
