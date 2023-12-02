@@ -116,7 +116,7 @@ function Navbar(props) {
                 <div onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)} className={`${!show ? "hidden" : ""} flex flex-col w-32  pl-5 pr-5 pt-2 pb-2 absolute right-0 top-8 bg-white shadow-lg rounded-md text-black `}>
 
                   <Link href={"/myprofile"} className="w-full mb-2  hover:text-gray-600 mt-4">My Profile</Link>
-                  <Link href={"/order"} className="w-full mb-2  hover:text-gray-600">Orders</Link>
+                  <Link href={"/orders"} className="w-full mb-2  hover:text-gray-600">Orders</Link>
                   <button onClick={() => { logout(); Toast("success", "Successfully Logged Out") }} className="text-left w-full mb-2  hover:text-gray-600">Logout</button>
 
 
@@ -192,8 +192,10 @@ function Navbar(props) {
 
             <h1 className='mt-5 font-bold text-md '>SubTotal: रु{subTotal}</h1>
             <div className='flex gap-2 mt-9 mb-20 flex-wrap'>
-              <Link onClick={toggleCart} href={"/checkout"}><button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40">Checkout</button></Link>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40" onClick={clearCart}>Clear Cart</button>
+              <Link onClick={toggleCart} href={"/checkout"}><button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40 disabled:bg-blue-200 disabled:cursor-not-allowed  disabled:text-black" disabled={Object.keys(cart).length==0}>Checkout</button></Link>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40 disabled:bg-blue-200 disabled:cursor-not-allowed disabled:text-black" onClick={clearCart} disabled={Object.keys(cart).length==0}>Clear Cart</button>
+            
+
             </div>
           </div>
 

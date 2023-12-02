@@ -88,6 +88,10 @@ export async function getServerSideProps(context) {
 
   for (let item of products) {
 
+    if(item.availableQuantity<1){
+      continue;
+    }
+
     if (item.title in stickers) {
       if (!stickers[item.title].color.includes(item.color) && item.availableQuantity) {
         stickers[item.title].color.push(item.color);

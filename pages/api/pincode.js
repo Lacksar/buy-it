@@ -1,4 +1,12 @@
-export default function handler(req,res){
+export default function handler(req, res) {
 
-    res.status(200).send([111111,222222,333333,444444,555555])
+    let pincodes = {
+
+        "56604": ["Urlabari", "Koshi"],
+        "56613": ["Biratnagar", "Koshi"]
+
+
+    }
+
+    res.status(200).send(pincodes)
 }

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { AiOutlineShoppingCart } from "react-icons/ai"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import mongoose from 'mongoose';
 import Product from "@/models/Product";
 import { ToastContainer } from 'react-toastify';
@@ -23,57 +23,44 @@ function Slug(props) {
 
   const router = useRouter();
   const [pin, setPin] = useState();
-
-  const { query: { slug } } = router;
-  console.log(slug)
-
   const [service, setService] = useState();
+  const [color, setColor] = useState(product.color)
+  const [size, setSize] = useState(product.size)
+  const { query: { slug } } = router;
+
+
+
+  useEffect(() => {
+    setColor(product.color);
+    setSize(product.size);
+  }, [router.query])
 
   const checkPins = async (pin) => {
 
     let pinJson = await fetch("/api/pincode");
     let pins = await pinJson.json();
 
-    if (pins.includes(parseInt(pin))) {
+    if (Object.keys(pins).includes(pin)) {
       setService(true)
       Toast("success", "Service Available");
-
-
-
-    }
-
-    else {
+    } else {
       setService(false);
       Toast("error", "Service Not Available");
-
-
-
 
     }
   }
 
 
-  const [color, setColor] = useState(product.color)
-  const [size, setSize] = useState(product.size)
-
-
   const refreshPage = (slug) => {
-
-
     let host = process.env.HOST;
     let url = `/product/${slug}`;
-
-    window.location.pathname = url;
-
-
+    router.push(url)
   }
 
 
   return (
 
     <>
-
-
       <section className="text-gray-600 body-font overflow-hidden">
 
         <ToastContainer
@@ -89,16 +76,12 @@ function Slug(props) {
           theme="light"
         />
 
-
-
-
-
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" className="lg:w-1/2 w-1/2 ml-auto mr-auto lg:h-auto object-cover object-center rounded" src={product.image} />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="mb-4 text-lg uppercase title-font text-gray-500 tracking-widest">{product.category}</h2>
-              <h1 className="text-gray-900 text-3xl tracking-wide  title-font font-medium mb-2">{product.title}</h1>
+              <h1 className="text-gray-900 text-3xl tracking-wide  title-font font-medium mb-2">{product.title} ({product.color}/{product.size})</h1>
 
               <p className="leading-relaxed">{product.desc}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
@@ -181,24 +164,20 @@ export async function getServerSideProps(context) {
 
   for (let item of variants) {
 
-    if (Object.keys(colorSizeSlug).includes(item.color)) {
-      colorSizeSlug[item.color][item.size] = { slug: item.slug }
+    if (item.availableQuantity > 0) {
+      if (Object.keys(colorSizeSlug).includes(item.color)) {
+        colorSizeSlug[item.color][item.size] = { slug: item.slug }
+      }
+
+      else {
+
+        colorSizeSlug[item.color] = {}
+        colorSizeSlug[item.color][item.size] = { slug: item.slug }
+
+      }
+
     }
-
-    else {
-
-      colorSizeSlug[item.color] = {}
-      colorSizeSlug[item.color][item.size] = { slug: item.slug }
-
-    }
-
   }
-
-
-
-
-
-
 
   return {
     props: { product: JSON.parse(JSON.stringify(product)), variants: JSON.parse(JSON.stringify(colorSizeSlug)) }

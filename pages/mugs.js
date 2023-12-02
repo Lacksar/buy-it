@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Product from "@/models/Product";
@@ -87,6 +86,10 @@ export async function getServerSideProps(context) {
   let mugs = {};
 
   for (let item of products) {
+
+    if(item.availableQuantity<1){
+      continue;
+    }
 
     if (item.title in mugs) {
       if (!mugs[item.title].color.includes(item.color) && item.availableQuantity) {

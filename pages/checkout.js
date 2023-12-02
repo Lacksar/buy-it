@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RxCross1 } from "react-icons/Rx"
 
 function checkout(props) {
@@ -18,7 +18,14 @@ function checkout(props) {
   const [pincode, setPincode] = useState("")
   const [disabled, setDisabled] = useState(true)
 
-  const handleChange = (e) => {
+
+
+
+
+  const handleChange = async (e) => {
+
+
+
 
     if (e.target.name == "name") {
       setName(e.target.value);
@@ -39,7 +46,26 @@ function checkout(props) {
 
     else if (e.target.name == "pincode") {
       setPincode(e.target.value);
+      if (e.target.value.length == 5) {
+
+
+        let pinJson = await fetch("/api/pincode");
+        let pins = await pinJson.json();
+        if (Object.keys(pins).includes(e.target.value)) {
+          setCity(pins[e.target.value][0])
+          setProvince(pins[e.target.value][1])
+        }
+        else {
+          setCity("")
+          setProvince("")
+        }
+
+      } else {
+        setCity("")
+        setProvince("")
+      }
     }
+
     else {
 
     }
@@ -69,7 +95,7 @@ function checkout(props) {
         body: JSON.stringify(data)
       })
     let response = await res.json();
-
+    if (response.success) clearCart();
 
 
   }
@@ -126,12 +152,12 @@ function checkout(props) {
 
             <div className='flex flex-col gap-2'>
               <label>Province</label>
-              <input onChange={handleChange} value={province} name="province" className='pl-2 h-10 border border-gray -300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800' />
+              <input readOnly onChange={handleChange} value={province} name="province" className='pl-2 h-10 border border-gray -300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800' />
             </div>
 
             <div className='flex flex-col gap-2'>
               <label>City</label>
-              <input onChange={handleChange} value={city} name="city" className='pl-2 h-10 border border-gray -300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800' />
+              <input readOnly onChange={handleChange} value={city} name="city" className='pl-2 h-10 border border-gray -300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800' />
             </div>
 
 
@@ -192,7 +218,7 @@ function checkout(props) {
 
           </div>
 
-          <button className={`bg-blue-500 hover:bg-blue-600 cursor-pointer mt-4   py-2 px-4 rounded w-40`} onClick={orderNow}>Order now</button>
+          <button disabled={Object.keys(cart).length == 0} className={`bg-blue-500 hover:bg-blue-600  cursor-pointer mt-4 disabled:bg-blue-100 disabled:cursor-not-allowed   py-2 px-4 rounded w-40`} onClick={orderNow}>Order now</button>
 
         </div>
 

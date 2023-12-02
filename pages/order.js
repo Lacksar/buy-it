@@ -42,7 +42,9 @@ function myorder(props) {
                       <th scope="col" className="px-6 py-3">
                         Per price
                       </th>
-
+                      <th scope="col" className="px-6 py-3">
+                        Total
+                      </th>
                     </tr>
                   </thead>
 
@@ -63,7 +65,9 @@ function myorder(props) {
                         <td className="px-6 py-4">
                           {products[x].price}
                         </td>
-
+                        <td className="px-6 py-4">
+                          {products[x].price * products[x].qty}
+                        </td>
                       </tr>
                     })}
 

@@ -27,8 +27,8 @@ const orders = (props) => {
                     body: requestBody
                 });
                 let response = await res.json();
-                setMyOrders(response)
-                console.log(response)
+                setMyOrders(response.foundData)
+                console.log(response.foundData)
             }
 
             fetchOrders();
@@ -69,25 +69,31 @@ const orders = (props) => {
                         <th scope="col" className="px-6 py-3">
                             Address
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
 
 
-                    {myOrders.map((x) => {
+                    {myOrders && myOrders.map((x) => {
 
-                        return <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        return <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onClick={()=>router.push(`/order?id=${x._id}`)}>
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
+                            {x.orderId}
                         </th>
                         <td className="px-6 py-4">
-                            Silver
+                        रु{x.amount}
                         </td>
                         <td className="px-6 py-4">
-                            Laptop
+                            {x.createdAt}
                         </td>
                         <td className="px-6 py-4">
-                            $2999
+                            {x.address}
+                        </td>
+                        <td className="px-6 py-4">
+                            {x.status}
                         </td>
                     </tr>
                     })}
