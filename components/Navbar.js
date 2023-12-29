@@ -193,7 +193,7 @@ function Navbar(props) {
             <h1 className='mt-5 font-bold text-md '>SubTotal: रु{subTotal}</h1>
             <div className='flex gap-2 mt-9 mb-20 flex-wrap'>
               <Link onClick={toggleCart} href={"/checkout"}><button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40 disabled:bg-blue-200 disabled:cursor-not-allowed  disabled:text-black" disabled={Object.keys(cart).length==0}>Checkout</button></Link>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40 disabled:bg-blue-200 disabled:cursor-not-allowed disabled:text-black" onClick={clearCart} disabled={Object.keys(cart).length==0}>Clear Cart</button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded w-40 disabled:bg-blue-200 disabled:cursor-not-allowed disabled:text-black" onClick={()=>{clearCart(); Toast("success", "Cart Cleared!");}} disabled={Object.keys(cart).length==0}>Clear Cart</button>
             
 
             </div>

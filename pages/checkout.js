@@ -2,11 +2,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { RxCross1 } from "react-icons/Rx"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function checkout(props) {
 
 
-  const { cart, addToCart, removeFromCart, subTotal, clearCart, user } = props;
+  const { cart, addToCart, removeFromCart, subTotal, clearCart, user ,Toast} = props;
   const router = useRouter();
 
   const [name, setName] = useState("")
@@ -17,7 +19,7 @@ function checkout(props) {
   const [province, setProvince] = useState("")
   const [pincode, setPincode] = useState("")
   const [disabled, setDisabled] = useState(true)
-
+  let dis= name.length==0|| email.length==0||address.length==0||phone.length<10||city.length==0||province.length==0||pincode.length==0||phone.length>10;
 
 
 
@@ -95,9 +97,16 @@ function checkout(props) {
         body: JSON.stringify(data)
       })
     let response = await res.json();
-    if (response.success) clearCart();
+   
+    if(response.success){
+       Toast("success",response.msg)
 
-
+       clearCart();
+    }
+    else if(!res.success){
+      Toast("error",response.error)
+    }
+   
   }
 
 
@@ -111,6 +120,19 @@ function checkout(props) {
 
 
       <div className=' ml-auto mr-auto w-5/6 mt-10 mb-20'>
+
+      <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <h1 className='text-2xl text-center font-semibold text-gray-900 mb-5'>Checkout</h1>
 
 
@@ -218,7 +240,7 @@ function checkout(props) {
 
           </div>
 
-          <button disabled={Object.keys(cart).length == 0} className={`bg-blue-500 hover:bg-blue-600  cursor-pointer mt-4 disabled:bg-blue-100 disabled:cursor-not-allowed   py-2 px-4 rounded w-40`} onClick={orderNow}>Order now</button>
+          <button disabled={Object.keys(cart).length == 0 || dis} className={`bg-blue-500 hover:bg-blue-600  cursor-pointer mt-4 disabled:bg-blue-100 disabled:cursor-not-allowed   py-2 px-4 rounded w-40`} onClick={orderNow}>Order now</button>
 
         </div>
 

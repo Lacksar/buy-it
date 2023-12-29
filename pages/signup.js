@@ -52,17 +52,15 @@ function signup(props) {
 
       Toast("success", "User Created!")
       router.push("/login")
+      return;
 
     }
+    console.log(response)
 
     if (!response.success) {
-
-      Toast("error", "Error Occured!")
-
+      Toast("error", `${response.message}`)
     }
-
   }
-
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

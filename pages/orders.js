@@ -87,7 +87,7 @@ const orders = (props) => {
                         रु{x.amount}
                         </td>
                         <td className="px-6 py-4">
-                            {x.createdAt}
+                            {new Date(x.createdAt).toLocaleDateString("en-US")}
                         </td>
                         <td className="px-6 py-4">
                             {x.address}

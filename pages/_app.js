@@ -128,7 +128,7 @@ const MyApp = ({ Component, pageProps }) => {
 
     setCart({});
     saveCart({});
-    Toast("success", "Cart Cleared!")
+    
 
   }
 

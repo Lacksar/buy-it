@@ -27,7 +27,8 @@ function myorder(props) {
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <div className="lg:w-full w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">Buy-It</h2>
-                <h1 className="text-gray-900 text-xl md:text-2xl title-font md:font-bold mb-4 mt-2">#Order Id: {order.orderId}</h1>
+                <h1 className="text-gray-900 text-xl md:text-2xl title-font md:font-bold mb-2 mt-2">#Order Id: {order.orderId}</h1>
+                <p className="text-gray-900  md:font-semibold mb-5 mt-2 pl-4">Created at: {new Date(order.createdAt).toLocaleDateString("en-US")}</p>
 
 
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -63,10 +64,10 @@ function myorder(props) {
                           {products[x].qty}
                         </td>
                         <td className="px-6 py-4">
-                          {products[x].price}
+                          Rs. {products[x].price}
                         </td>
                         <td className="px-6 py-4">
-                          {products[x].price * products[x].qty}
+                          Rs. {products[x].price * products[x].qty}
                         </td>
                       </tr>
                     })}
@@ -82,7 +83,7 @@ function myorder(props) {
 
                 <div className="flex mt-10 border-t-2 pt-5">
                   <button className="flex text-white bg-indigo-500 border-0 px-2 py-2 md:px-6 focus:outline-none hover:bg-indigo-600 rounded">Track Order</button>
-                  <span className="title-font font-medium text-xl md:text-2xl sm:text-xl ml-auto text-gray-900">SubTotal: {order.amount}</span>
+                  <span className="title-font font-medium text-xl md:text-2xl sm:text-xl ml-auto text-gray-900">SubTotal: Rs. {order.amount}</span>
                 </div>
               </div>
               {/* <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" /> */}

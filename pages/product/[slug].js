@@ -57,7 +57,6 @@ function Slug(props) {
     router.push(url)
   }
 
-
   return (
 
     <>
@@ -158,6 +157,11 @@ export async function getServerSideProps(context) {
   }
 
   let product = await Product.findOne({ slug: context.query.slug })
+  if (!product) {
+    return {
+      notFound: true,
+    }
+  }
   let variants = await Product.find({ title: product.title })
 
   let colorSizeSlug = {};

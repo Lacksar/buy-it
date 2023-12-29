@@ -1,4 +1,7 @@
 
+//This is login api 
+
+
 import User from "@/models/User";
 import connectDb from "@/middleware/mongoose";
 
@@ -11,7 +14,7 @@ const handler = async (req, res) => {
         const foundUser = await User.findOne({ "email": req.body.email });
 
         if (!foundUser) {
-            return res.status(401).json({ success: false, message: 'Incorrect UserName ' })
+            return res.status(401).json({ success: false, message: 'Incorrect UserName or Password' })
         }
 
         const candidatePassword = req.body.password;
@@ -19,7 +22,7 @@ const handler = async (req, res) => {
         await foundUser.comparePassword(candidatePassword, (err, isMatch) => {
             if (err) {
                 console.error(err);
-                return res.status(500).json({ success: false, message: 'Internal server error' });
+                return res.status(500).json({ success: false, message: 'Incorrect Username or Password' });
             }
 
             if (isMatch) {
