@@ -13,7 +13,7 @@ function forget(props) {
     const [password, setPassword] = useState("");
     const { Toast, token } = props;
 
-    console.log(token.userid)
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     }
@@ -38,9 +38,12 @@ function forget(props) {
             })
         let response = await res.json();
         if (response.success) {
-            Toast("success", "Code sent to your email")
+            Toast("success", "Details sent to your email")
 
+        } else {
+            Toast("error", response.message || response.error)
         }
+        setEmail("")
     }
 
     const handlePasswordSubmit = async (e) => {
@@ -58,9 +61,14 @@ function forget(props) {
             })
         let response = await res.json();
         if (response.success) {
-            Toast("success", "Code sent to your email")
-
+            Toast("success", "Password Changed Successfully");
+            router.push("/login");
+        } else {
+            Toast("error", response.message || response.error)
         }
+        setPassword("")
+
+
 
 
     }

@@ -1,6 +1,7 @@
 import connectDb from "@/middleware/mongoose";
 import Forget from '@/models/Forget';
 import User from '@/models/User';
+import { v4 as uuidv4 } from 'uuid';
 
 const handler = async (req, res) => {
     if (req.method === 'POST') {
@@ -42,11 +43,9 @@ const handler = async (req, res) => {
 }
 
 // Function to generate a new token
+
 const generateNewToken = () => {
-    // Implement your logic to generate a new token here
-    // For example, you can use a library like 'uuid' to generate a unique token
-    const newToken = "12345";
-    return newToken;
+    return uuidv4(); // Generate a unique token using uuid
 }
 
 export default connectDb(handler);

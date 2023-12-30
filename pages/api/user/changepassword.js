@@ -18,7 +18,7 @@ const handler = async (req, res) => {
                 return res.status(401).json({ success: false, message: 'Incorrect UserName' });
             }
 
-            if (!validatePassword(password)) {
+            if (!validatePassword(req.body.password)) {
                 return res.status(403).json({ success: false, message: 'Password must be at least 6 characters long' });
             }
 
