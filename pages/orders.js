@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Order from '@/models/Order'
-import mongoose from 'mongoose'
+
 
 const orders = (props) => {
 
@@ -79,23 +78,23 @@ const orders = (props) => {
 
                     {myOrders && myOrders.map((x) => {
 
-                        return <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onClick={()=>router.push(`/order?id=${x._id}`)}>
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {x.orderId}
-                        </th>
-                        <td className="px-6 py-4">
-                        रु{x.amount}
-                        </td>
-                        <td className="px-6 py-4">
-                            {new Date(x.createdAt).toLocaleDateString("en-US")}
-                        </td>
-                        <td className="px-6 py-4">
-                            {x.address}
-                        </td>
-                        <td className="px-6 py-4">
-                            {x.status}
-                        </td>
-                    </tr>
+                        return <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onClick={() => router.push(`/order?id=${x._id}`)}>
+                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {x.orderId}
+                            </th>
+                            <td className="px-6 py-4">
+                                रु{x.amount}
+                            </td>
+                            <td className="px-6 py-4">
+                                {new Date(x.createdAt).toLocaleDateString("en-US")}
+                            </td>
+                            <td className="px-6 py-4">
+                                {x.address}
+                            </td>
+                            <td className="px-6 py-4">
+                                {x.status}
+                            </td>
+                        </tr>
                     })}
 
 
