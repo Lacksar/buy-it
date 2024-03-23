@@ -34,6 +34,7 @@ const users = (props) => {
                                 </div>
                                 <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                     {x.phone == 0 ? "Not Available" : x.phone}
+                                    {/* she */}
                                 </div>
                             </div>
                         </div>
