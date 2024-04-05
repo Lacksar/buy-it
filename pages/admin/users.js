@@ -7,13 +7,15 @@ import mongoose from 'mongoose';
 const users = (props) => {
 
     const { userData } = props;
-    console.log(userData)
 
     return (
         <Layout>
 
+
+
             <h1 className='text-center text-2xl mb-2'>Users</h1>
             <div className="flex flex-col ml-10 mr-10">
+
 
                 {userData.map((x, y) => {
 
@@ -34,7 +36,6 @@ const users = (props) => {
                                 </div>
                                 <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                     {x.phone == 0 ? "Not Available" : x.phone}
-                                    {/* she */}
                                 </div>
                             </div>
                         </div>

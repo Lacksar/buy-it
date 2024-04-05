@@ -10,7 +10,26 @@ const UserSchema = new mongoose.Schema({
     address: { type: String, default: "" }
 }, { timestamps: true });
 
+
+
+UserSchema.pre('save', async function (next) {
+    try {
+
+        const salt = Number(process.env.SALT);
+        const hashedPassword = await bcrypt.hash(this.password, salt);
+        this.password = hashedPassword;
+
+        next();
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 // Middleware to hash the password before updating
+
+
 UserSchema.pre('findOneAndUpdate', async function (next) {
     try {
         // Check if the password is being modified

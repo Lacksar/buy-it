@@ -33,7 +33,7 @@ function tshirts({ tshirts }) {
               < div className=" mb-4 sm:w-1/2 lg:w-1/4 md:w-1/2 p-4 w-5/6  xl:w-1/5 shadow-md" key={x}>
                 <Link href={`/product/${tshirts[x].slug}`}>
                   <div className="block relative rounded overflow-hidden">
-                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" src="https://st2.depositphotos.com/5311026/10541/i/950/depositphotos_105418922-stock-photo-boy-wearing-colorful-plaid-shirt.jpg" />
+                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" loading='lazy' src="https://st2.depositphotos.com/5311026/10541/i/950/depositphotos_105418922-stock-photo-boy-wearing-colorful-plaid-shirt.jpg" />
                   </div>
                   <div className="mt-4 ">
                     <h3 className="text-gray-500 text-sm tracking-widest title-font">Hoodie</h3>
@@ -88,7 +88,7 @@ export async function getServerSideProps(context) {
 
   for (let item of products) {
 
-    if(item.availableQuantity<1){
+    if (item.availableQuantity < 1) {
       continue;
     }
 
@@ -110,7 +110,7 @@ export async function getServerSideProps(context) {
         tshirts[item.title].size = [item.size];
       }
 
-     
+
     }
 
 

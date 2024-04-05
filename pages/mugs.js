@@ -32,7 +32,7 @@ function mugs({ mugs }) {
               < div className=" sm:w-1/2 lg:w-1/4 md:w-1/2 p-4 w-5/6  xl:w-1/5 shadow-md" key={x}>
                 <Link href={`/product/${mugs[x].slug}`}>
                   <div className="block relative rounded overflow-hidden">
-                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" src={mugs[x].image} />
+                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" loading='lazy' src={mugs[x].image} />
                   </div>
                   <div className="mt-4 ">
                     <h3 className="text-gray-500 text-sm tracking-widest title-font">Mug</h3>
@@ -87,7 +87,7 @@ export async function getServerSideProps(context) {
 
   for (let item of products) {
 
-    if(item.availableQuantity<1){
+    if (item.availableQuantity < 1) {
       continue;
     }
 
