@@ -36,7 +36,7 @@ function Sidebar() {
                     </button>
 
 
-                    <aside id="default-sidebar" className={`fixed top-16 left-0 w-full sm:w-64 h-screen transition-transform ${isSidebarOpen ? '' : '-translate-x-full sm:translate-x-0'
+                    <aside id=" default-sidebar" className={`z-40 fixed top-16 left-0 w-full sm:w-64 h-screen transition-transform ${isSidebarOpen ? '' : '-translate-x-full sm:translate-x-0'
                         }`} aria-label="Sidebar">
                         <div className=" h-full px-3 py-4 overflow-y-auto bg-gray-100 dark:bg-gray-800">
                             <ul className="space-y-2 font-medium pt-9 sm:pt-0 mt-5 ml-4">

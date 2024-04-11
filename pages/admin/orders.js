@@ -2,10 +2,12 @@ import React from 'react'
 import Layout from './Layout'
 import Order from '@/models/Order'
 import mongoose from 'mongoose'
+import { useRouter } from 'next/router'
+
 const orders = (props) => {
 
     const { usersOrder } = props;
-    console.log(usersOrder);
+    const router = useRouter();
     return (
         <>
             <Layout>
@@ -34,12 +36,12 @@ const orders = (props) => {
                             {usersOrder.map((x, y) => {
 
                                 return (
-                                    <tr key={y} className='hover:bg-blue-300 cursor-pointer border-b-2 '>
+                                    <tr key={y} className='hover:bg-blue-300 cursor-pointer border-b-2 ' onClick={() => router.push(`/admin/order/${x._id}`)}>
 
                                         <td className="px-4 py-2 text-center">{x.orderId}</td>
                                         <td className="px-4 py-2 text-center">{x.userId}</td>
                                         <td className="px-4 py-2 text-center">{new Date(x.createdAt).toLocaleDateString("en-US")}</td>
-                                        <td className="px-4 py-2 text-center"><span className='bg-red-300 p-1 rounded-lg'>{x.status}</span></td>
+                                        <td className="px-4 py-2 text-center"><span className={` p-1 rounded-lg ${x.status == "pending" ? "bg-red-300" : "bg-green-300"}`}>{x.status}</span></td>
 
                                         <td className="px-4 py-2 text-center">{x.products.map((product, index) => {
                                             const key = Object.keys(product)[0];

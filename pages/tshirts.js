@@ -33,17 +33,17 @@ function tshirts({ tshirts }) {
               < div className=" mb-4 sm:w-1/2 lg:w-1/4 md:w-1/2 p-4 w-5/6  xl:w-1/5 shadow-md" key={x}>
                 <Link href={`/product/${tshirts[x].slug}`}>
                   <div className="block relative rounded overflow-hidden">
-                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" loading='lazy' src="https://st2.depositphotos.com/5311026/10541/i/950/depositphotos_105418922-stock-photo-boy-wearing-colorful-plaid-shirt.jpg" />
+                    <img alt="ecommerce" className=" object-top ml-auto mr-auto" loading='lazy' src={tshirts[x].image} />
                   </div>
                   <div className="mt-4 ">
                     <h3 className="text-gray-500 text-sm tracking-widest title-font">Hoodie</h3>
                     <h2 className="text-gray-900 title-font text-xl font-medium tracking-wide">{tshirts[x].title}</h2>
                     <p className="mt-2">${tshirts[x].price}</p>
 
-                    <div className="mt-2">
+                    <div className="mt-2 flex flex-wrap gap-2">
 
                       {tshirts[x].size.map(x => {
-                        return <span key={x} className='mr-3 border-2 pl-1 pr-1'>{x}</span>
+                        return <span key={x} className=' border-2 pl-1 pr-1'>{x}</span>
                       })}
 
                     </div>
