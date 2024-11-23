@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import LowerFooter from "@/components/LowerFooter";
 import LoadingBar from "react-top-loading-bar";
+import Searchbox from "@/components/Searchbox";
 
 const MyApp = ({ Component, pageProps }) => {
   const [cart, setCart] = useState({});
@@ -14,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [key, setKey] = useState(0);
   const [progress, setProgress] = useState(0);
   const router = useRouter();
+  const [categories, setCategories] = useState();
 
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
@@ -24,6 +26,24 @@ const MyApp = ({ Component, pageProps }) => {
       setProgress(100);
     });
   });
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`/api/products/categories`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch search results");
+        }
+        const results = await response.json();
+        setCategories(results.categories);
+        console.log("Search results:", results);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -178,21 +198,25 @@ const MyApp = ({ Component, pageProps }) => {
         clearCart={clearCart}
         subTotal={subTotal}
         removeFromCart={removeFromCart}
+        categories={categories}
       />
-      <Component
-        toggleCart={toggleCart}
-        cartIsOpen={cartIsOpen}
-        user={user}
-        logout={logout}
-        cart={cart}
-        addToCart={addToCart}
-        clearCart={clearCart}
-        subTotal={subTotal}
-        buyNow={buyNow}
-        Toast={Toast}
-        removeFromCart={removeFromCart}
-        {...pageProps}
-      />
+      <div className="mt-20 md:mt-0" style={{ minHeight: "100vh" }}>
+        <Component
+          toggleCart={toggleCart}
+          cartIsOpen={cartIsOpen}
+          user={user}
+          logout={logout}
+          cart={cart}
+          addToCart={addToCart}
+          clearCart={clearCart}
+          subTotal={subTotal}
+          buyNow={buyNow}
+          Toast={Toast}
+          removeFromCart={removeFromCart}
+          categories={categories}
+          {...pageProps}
+        />
+      </div>
 
       <Footer />
       <LowerFooter
@@ -200,6 +224,7 @@ const MyApp = ({ Component, pageProps }) => {
         Toast={Toast}
         toggleCart={toggleCart}
         logout={logout}
+        categories={categories}
       />
     </>
   );

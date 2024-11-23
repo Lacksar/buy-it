@@ -17,6 +17,7 @@
     "eslint-config-next": "13.4.9",
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0.1",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.4.3",
     "next": "13.4.9",

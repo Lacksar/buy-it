@@ -5,8 +5,6 @@ const getCategories = async (req, res) => {
   if (req.method === "GET") {
     try {
       const products = await Product.find();
-
-      // Extract unique categories
       const categories = [
         ...new Set(products.map((product) => product.category)),
       ];

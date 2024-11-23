@@ -33,22 +33,18 @@ const handler = async (req, res) => {
 
         // Check if product is in stock
         if (!product || product.availableQuantity < cart[item].qty) {
-          return res
-            .status(400)
-            .json({
-              success: false,
-              error: "Some item in your cart is out of stock",
-            });
+          return res.status(400).json({
+            success: false,
+            error: "Some item in your cart is out of stock",
+          });
         }
 
         // Check if product price matches
         if (product.price !== cart[item].price) {
-          return res
-            .status(400)
-            .json({
-              success: false,
-              error: "Price of some item in your cart is changed",
-            });
+          return res.status(400).json({
+            success: false,
+            error: "Price of some item in your cart is changed",
+          });
         }
       }
 

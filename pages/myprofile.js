@@ -176,7 +176,7 @@ const MyProfile = (props) => {
 
                 <button
                   type="button"
-                  className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-5 w-36"
+                  className="hover:bg-blue-700 hover:scale-105 transition-transform bg-gradient-to-r from-blue-500 to-blue-900 text-white py-2 px-4 rounded mt-5 w-36 shadow-md"
                   onClick={handleUpdate}
                 >
                   Update
